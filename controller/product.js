@@ -1,11 +1,12 @@
 const Product = require("../model/product")
 
-
-exports.getAllProducts = async (req, res) => {
+exports.addProduct = async (req, res) => {
     try {
-        const allProducts = await Product.getAllProducts()
-        console.log(allProducts[0]);
-        res.send(allProducts[0])
+        const { name, price } = req.body
+        const dbResponse = await Product.create({
+            name: name, price: price
+        })
+        res.send(dbResponse)
 
     } catch (error) {
         console.log(error);
@@ -13,14 +14,10 @@ exports.getAllProducts = async (req, res) => {
     }
 }
 
-
-
-exports.insertProduct = async (req, res) => {
-    const { name, price } = req.body
-    const newProduct = new Product(name, price)
+exports.getAllProduct = async (req, res) => {
     try {
-        await newProduct.insertProduct()
-        res.send(true)
+        const dbResponse = await Product.findAll()
+        res.send(dbResponse)
     } catch (error) {
         console.log(error);
         res.send(false)

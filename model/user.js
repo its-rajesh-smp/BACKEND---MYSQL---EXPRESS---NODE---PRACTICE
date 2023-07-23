@@ -1,17 +1,18 @@
-const db = require("../util/database")
+const Sequelize = require("sequelize")
+const sequelize = require("../util/database")
 
-
-module.exports = User = class {
-    static loginUser(userEmail) {
-        return db.execute("SELECT * FROM user_table WHERE userEmail = ?", [userEmail])
+const User = sequelize.define("user_table", {
+    userEmail: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+        unique: true,
+        allowNull: false
+    },
+    userName: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
+})
 
-    constructor(userEmail, userName) {
-        this.userEmail = userEmail
-        this.userName = userName
-    }
 
-    createUser() {
-        return db.execute("INSERT INTO user_table (userEmail,userName) VALUES (?,?)", [this.userEmail, this.userName])
-    }
-}
+module.exports = User
