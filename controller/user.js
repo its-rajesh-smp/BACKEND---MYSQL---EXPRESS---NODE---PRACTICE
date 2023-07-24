@@ -1,4 +1,5 @@
 const User = require("../model/user")
+const Cart = require("../model/cart")
 
 
 exports.createUser = async (req, res) => {
@@ -19,7 +20,9 @@ exports.createUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try {
         const { userEmail } = req.body
-        const dbResponse = await User.findByPk(userEmail)
+        const dbResponse = await User.findByPk(userEmail, {
+            include: [Cart]
+        })
         if (!dbResponse) {
             res.send(false)
         }

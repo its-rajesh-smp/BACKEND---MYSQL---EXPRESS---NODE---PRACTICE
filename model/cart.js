@@ -8,14 +8,6 @@ const Cart = sequelize.define("cart_table", {
         primaryKey: true,
         autoIncrement: true
     },
-    productId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    userEmail: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
     quantity: {
         type: Sequelize.INTEGER,
         allowNull: false

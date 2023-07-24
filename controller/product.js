@@ -1,4 +1,5 @@
 const Product = require("../model/product")
+const Cart = require("../model/cart")
 
 exports.addProduct = async (req, res) => {
     try {
@@ -16,7 +17,9 @@ exports.addProduct = async (req, res) => {
 
 exports.getAllProduct = async (req, res) => {
     try {
-        const dbResponse = await Product.findAll()
+        const dbResponse = await Product.findAll({
+            include: [Cart]
+        })
         res.send(dbResponse)
     } catch (error) {
         console.log(error);

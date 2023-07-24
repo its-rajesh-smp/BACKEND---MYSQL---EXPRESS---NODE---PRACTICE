@@ -1,4 +1,5 @@
 const Cart = require('../model/cart')
+const Product = require('../model/product')
 
 exports.getAllCart = async (req, res) => {
     try {
@@ -6,7 +7,8 @@ exports.getAllCart = async (req, res) => {
         const dbResponse = await Cart.findAll({
             where: {
                 userEmail: userEmail
-            }
+            },
+            include: [Product]
         })
         res.send(dbResponse)
 
